@@ -46,7 +46,14 @@ db.orders.update({_id: ObjectId("599ef8ec5399fee08d1e17c7")}, {$set: {orderTotal
 
 // 6. Add another lineItem to the order from 4/4/2017
 
-
+db.orders.update({_id: ObjectId("599ef8f05399fee08d1e17c8")}, 
+{$push: {'lineItems': {unitPrice: 2.25, quantity: 2, productName: 'Chips'}}});
 
 // 7. Change the first lineItem in the order from 1/2/2017 to be for 2 'transistor radio's
+
+db.orders.update({_id: ObjectId("599ef8f45399fee08d1e17c9")}, 
+{$set: {'lineItems.0.': {unitPrice: 1.50, quantity: 2, productName: 'transistor radio'}}});
+
 // 8. Find orders with lineItems that have a quantity that is less than 10, but greater than 2. You will have to research $and
+
+db.orders.find($and: [{'lineItems.quantity': {$gt: 2},  {'lineItems.quantity':{$lt: 10}}}]);
